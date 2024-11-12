@@ -13,6 +13,8 @@ function App() {
         {name: "peach", id: crypto.randomUUID(), src: ""},
     ]);
 
+    const [clickedItems, setClickedItems] = useState(new Set());
+
     function shuffleArray() {
         const nextArr = [...items];
         for (let i = nextArr.length - 1; i >= 0; i--) {
@@ -24,8 +26,17 @@ function App() {
         setArray(nextArr);
     }
 
-    function handleCardClick(clicked) {
-        console.log(clicked ? "ALREADY CLICKED" : "NOT CLICKED");
+    function handleCardClick(id) {
+        // console.log(clicked ? "ALREADY CLICKED" : "NOT CLICKED");
+        if (clickedItems.has(id)) {
+            //reset score
+            console.log("game over")
+        }
+        else {
+            //increase score
+            setClickedItems((old) => new Set(old).add(id));
+            console.log("continue")
+        }
     }
 
     return (
@@ -33,7 +44,7 @@ function App() {
             <button onClick={shuffleArray}>Shuffle</button>
             <div id="board">
                 {items.map((item) => {
-                    return <Card name={item.name} key={item.id} src={item.src} notifyClickedState={handleCardClick}/>
+                    return <Card name={item.name} key={item.id} src={item.src} onClick={() => handleCardClick(item.id)}/>
                 })}
             </div>
         </>
