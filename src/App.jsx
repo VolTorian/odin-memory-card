@@ -31,22 +31,25 @@ function App() {
         if (clickedItems.has(id)) {
             //reset score
             console.log("game over")
+            setClickedItems(new Set());
         }
         else {
             //increase score
             setClickedItems((old) => new Set(old).add(id));
             console.log("continue")
         }
+        shuffleArray()
     }
 
     return (
         <>
-            <button onClick={shuffleArray}>Shuffle</button>
+            {/* <button onClick={shuffleArray}>Shuffle</button> */}
             <div id="board">
                 {items.map((item) => {
                     return <Card name={item.name} key={item.id} src={item.src} onClick={() => handleCardClick(item.id)}/>
                 })}
             </div>
+            <div>Score: {clickedItems.size}</div>
         </>
     )
 }
