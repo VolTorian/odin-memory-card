@@ -1,19 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 import Card from './Card'
 
 function App() {
-    const [items, setArray] = useState([
-        {name: "apple", id: crypto.randomUUID(), src: ""},
-        {name: "banana", id: crypto.randomUUID(), src: ""},
-        {name: "kiwi", id: crypto.randomUUID(), src: ""},
-        {name: "grape", id: crypto.randomUUID(), src: ""},
-        {name: "strawberry", id: crypto.randomUUID(), src: ""},
-        {name: "peach", id: crypto.randomUUID(), src: ""},
-    ]);
-
+    const [items, setArray] = useState([]);
     const [clickedItems, setClickedItems] = useState(new Set());
+
+    useEffect(() => {
+        fetchPokemon();
+    }, []);
+
+    async function fetchPokemon() {
+        const pokemonList = []
+        const numbers = generateUniqueNumbers();
+        for (let i = 0; i < numbers.length; i++) {
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${numbers[i]}`);
+            const data = await response.json();
+            const pokemon = {name: data.name, id: data.id, src: data.sprites.front_default};
+
+            pokemonList.push(pokemon);
+        }
+        setArray(pokemonList);
+    }
 
     function shuffleArray() {
         const nextArr = [...items];
@@ -49,3 +58,11 @@ function App() {
 }
 
 export default App
+
+function generateUniqueNumbers() {
+    const numbers = new Set();
+    while (numbers.size < 8) {
+        numbers.add(Math.floor((Math.random() * 151) + 1))
+    }
+    return [...numbers];
+}
