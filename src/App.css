@@ -7,9 +7,19 @@
 
 #board {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .card {
-  padding: 2rem;
   border: solid gray 2px;
+  width: 200px;
+}
+
+img {
+  width: 100%;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
