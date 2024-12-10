@@ -62,8 +62,8 @@ export default App
 
 function generateUniqueNumbers() {
     const numbers = new Set();
-    while (numbers.size < 8) {
-        numbers.add(Math.floor((Math.random() * 151) + 1))
+    while (numbers.size < 14) {
+        numbers.add(Math.floor((Math.random() * 1024) + 1))
     }
     return [...numbers];
 }
