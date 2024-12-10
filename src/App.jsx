@@ -47,12 +47,13 @@ function App() {
 
     return (
         <>
+            <div id="score">Score: {clickedItems.size}</div>
+            <br />
             <div id="board">
                 {items.map((item) => {
                     return <Card name={item.name} key={item.id} src={item.src} onClick={() => handleCardClick(item.id)}/>
                 })}
             </div>
-            <div>Score: {clickedItems.size}</div>
         </>
     )
 }
